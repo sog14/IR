@@ -33,7 +33,7 @@ export const INITIAL_STATE: DossierState = {
   bailHistory: [],
 };
 
-export const FAMILY_KEYS = ['Father', 'Mother', 'Wife', 'Brother', 'Sister', 'ChildrenCount', 'ChildrenDetail'];
-export const DIGITAL_KEYS = ['Passwd', 'WhatsApp', 'Signal', 'FB', 'Insta', 'Tele', 'Twitter', 'Email', 'Other'];
+export const FAMILY_KEYS = ['Father', 'Mother', 'Wife', 'Brother', 'Sister', 'Children', 'Other'];
+export const DIGITAL_KEYS = ['Phone', 'WhatsApp', 'Signal', 'FB', 'Insta', 'Tele', 'Twitter', 'Email', 'Other'];
 export const DOC_KEYS = ['Aadhar', 'PAN', 'Voter', 'Bank', 'Passpt', 'DL', 'Other'];
-export const HABIT_KEYS = ['Cloth', 'Drink', 'Smoking', 'Drugs', 'Prostitution'];
+export const HABIT_KEYS = ['Cloths', 'Drinking', 'Smoking', 'Drugs', 'Prostitution'];
