@@ -74,7 +74,14 @@ const App: React.FC = () => {
 
     setIsTranslating(true);
     try {
-      const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+      // Use Vite's standard environment variable access
+      const apiKey = import.meta.env.VITE_GEMINI_API_KEY || (process.env as any).GEMINI_API_KEY;
+      
+      if (!apiKey || apiKey === 'undefined' || apiKey === 'PLACEHOLDER_API_KEY' || apiKey === '') {
+        throw new Error("API Key is missing. Please set VITE_GEMINI_API_KEY in GitHub Secrets.");
+      }
+
+      const ai = new GoogleGenAI({ apiKey });
       const prompt = `You are a professional translator for official police dossiers. 
       Translate all values in the following JSON object to ${targetLang}. 
       Keep the keys exactly as they are. Preserve technical terms, names, and addresses accurately.
@@ -91,14 +98,18 @@ const App: React.FC = () => {
         }
       });
 
+      if (!response.text) {
+        throw new Error("Empty response from AI model.");
+      }
+
       const translatedFields = JSON.parse(response.text);
       setState(prev => ({
         ...prev,
         fields: translatedFields
       }));
-    } catch (error) {
+    } catch (error: any) {
       console.error("Translation failed:", error);
-      alert("AI Translation failed. Please try again.");
+      alert(`AI Translation failed: ${error.message || "Please try again."}`);
     } finally {
       setIsTranslating(false);
     }
