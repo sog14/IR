@@ -1,8 +1,13 @@
 
 
-// Augmenting the existing NodeJS.ProcessEnv to include GEMINI_API_KEY.
-// This avoids the "Cannot redeclare block-scoped variable 'process'" error
-// which occurs when 'process' is already defined by node types in the environment.
+interface ImportMetaEnv {
+  readonly VITE_GEMINI_API_KEY: string;
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
+}
+
 declare namespace NodeJS {
   interface ProcessEnv {
     GEMINI_API_KEY: string;
